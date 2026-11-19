@@ -522,6 +522,8 @@ body.scroll .picks{grid-template-columns:1fr}
 .hb.wv .hr{grid-template-columns:calc(var(--u)*100) 1fr calc(var(--u)*240)}
 .step ul{font-size:var(--fs-b);display:flex;flex-direction:column;gap:calc(var(--u)*8)}
 .step ul li{font-size:var(--fs-b)}
+.divider .presenter{font-size:var(--fs-m);font-weight:700;color:var(--ondeep2);border-left:4px solid var(--tealmid);padding-left:calc(var(--u)*14);margin-top:calc(var(--u)*-18)}
+.divider.mi .presenter{border-color:var(--orange)}
 </style>
 <div class="deck" id="deck">
 <!-- ───────── 01 封面 -->
@@ -533,8 +535,8 @@ body.scroll .picks{grid-template-columns:1fr}
       <h1>看見一個人<br>看見一套流程</h1>
       <p class="cover-sub">個案討論＋系統討論：以<b>暖暖衛生所</b>的服務為例</p>
       <dl class="cover-meta">
-        <div><dt>資料範圍</dt><dd>2026/01–08 評估個案</dd></div>
-        <div><dt>資料筆數</dt><dd><span class="num">646</span> 位長者（已去識別化）</dd></div>
+        <div><dt>報告者</dt><dd>暖暖區衛生所 李麗芳 主任</dd></div>
+        <div><dt>資料</dt><dd>2026/01–08・<span class="num">646</span> 位長者（已去識別化）</dd></div>
         <div><dt>對象</dt><dd>護理師・ICOPE 評估人員</dd></div>
         <div><dt>引導</dt><dd>鍾孟修 職能治療師</dd></div>
       </dl>
@@ -550,6 +552,7 @@ body.scroll .picks{grid-template-columns:1fr}
     </div>
   </div>
   <aside class="notes"><h4>講者備註</h4><ul>
+    <li>報告者：暖暖區衛生所 李麗芳 主任。</li>
     <li>今天的系統討論不是評比暖暖衛生所，而是借一個真實單位的資料，看「流程哪裡順、哪裡卡」。</li>
     <li>右邊六格是今天的主線：646 → 110 → 39 → 25 → 29，最後會請大家回頭算自己的數字。</li>
     <li>資料已去識別化，只用個案代號；簡報裡不顯示任何個案代號與評估人員姓名。</li>
@@ -566,9 +569,9 @@ body.scroll .picks{grid-template-columns:1fr}
       <tbody>
         <tr class="ne"><td class="num">09:30–10:00</td><td>報到</td><td></td></tr>
         <tr class="ne"><td class="num">10:00–10:05</td><td>開場與人員介紹</td><td>衛生局</td></tr>
-        <tr class="mi"><td class="num">10:05–11:15</td><td><b>共學主題報告（一）案例討論與反饋</b><br><span class="small ink2">營養個案：初評 → 複評 → 介入 → 後測，分組補完整介入計畫</span></td><td>專家委員・共學團體・講師主持人</td></tr>
+        <tr class="mi"><td class="num">10:05–11:15</td><td><b>共學主題報告（一）案例討論與反饋</b><br><span class="small ink2">營養個案：初評 → 複評 → 介入 → 後測，分組補完整介入計畫</span></td><td>報告：暖暖區衛生所 李麗芳 主任<br><span class="small ink2">專家委員・講師主持人</span></td></tr>
         <tr class="ne"><td class="num">11:15–11:20</td><td>休息</td><td></td></tr>
-        <tr class="ma"><td class="num">11:20–12:15</td><td><b>共學主題報告（二）數據分析與策略研討</b><br><span class="small ink2">系統討論：暖暖衛生所 646 筆數據 → 反思自己單位 → 行動承諾</span></td><td>專家委員・共學團體・講師主持人</td></tr>
+        <tr class="ma"><td class="num">11:20–12:15</td><td><b>共學主題報告（二）數據分析與策略研討</b><br><span class="small ink2">系統討論：暖暖衛生所 646 筆數據 → 反思自己單位 → 行動承諾</span></td><td>報告：暖暖區衛生所 李麗芳 主任<br><span class="small ink2">專家委員・講師主持人</span></td></tr>
         <tr class="ne"><td class="num">12:15–12:30</td><td>滿意度調查、大合照</td><td></td></tr>
       </tbody>
     </table>
@@ -609,6 +612,7 @@ body.scroll .picks{grid-template-columns:1fr}
   <div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:calc(var(--u)*34)">
     <div class="big">個案討論<small>PART 1 · 案例討論與反饋</small></div>
     <p class="lead">69 歲的她吃得少、瘦了。要是你，會怎麼介入、轉給誰？</p>
+    <p class="presenter">報告：暖暖區衛生所 李麗芳 主任</p>
     <div class="qs">
       <div><b>認識她</b><span>初評、複評、用藥社會</span></div>
       <div><b>先想再看</b><span>你會給什麼</span></div>
@@ -949,6 +953,7 @@ body.scroll .picks{grid-template-columns:1fr}
   <div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:calc(var(--u)*36)">
     <div class="big">看見暖暖<small>PART 2 · 數據分析與策略研討</small></div>
     <p class="lead">從 646 位長者的資料，看一個衛生所的服務流程長什麼樣子。</p>
+    <p class="presenter">報告：暖暖區衛生所 李麗芳 主任</p>
     <div class="qs">
       <div><b>量與節奏</b><span>什麼時候、在哪裡做</span></div>
       <div><b>對象</b><span>找到的是誰</span></div>

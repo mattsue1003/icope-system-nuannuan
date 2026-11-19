@@ -184,7 +184,7 @@ tb(s, 0.55, 1.15, 6.4, 0.45, "ICOPE · System Review", 14, TEAL, bold=True)
 tb(s, 0.55, 1.6, 6.6, 2.0, [("看見一個人", {}), ("看見一套流程", {})], 44, INK, bold=True, ls=1.1)
 tb(s, 0.55, 3.65, 6.6, 0.55, [("系統討論：以", {"size": 20, "bold": True, "color": INK2})], 20)
 s.shapes[-1].text_frame.paragraphs[0].runs[0].text = "個案討論＋系統討論：以暖暖衛生所的服務為例"
-meta = [("資料範圍", "2026/01–08 評估個案"), ("資料筆數", "646 位長者（已去識別化）"), ("對象", "護理師・ICOPE 評估人員"), ("引導", "鍾孟修 職能治療師")]
+meta = [("報告者", "暖暖區衛生所 李麗芳 主任"), ("資料", "2026/01–08・646 位長者（已去識別化）"), ("對象", "護理師・ICOPE 評估人員"), ("引導", "鍾孟修 職能治療師")]
 for i, (k, v) in enumerate(meta):
     xx = 0.55 + (i % 2) * 2.5; yy = 4.45 + (i // 2) * 1.12
     tb(s, xx, yy, 2.45, 1.08, [(k, {"size": 12, "bold": True, "color": INK3}), (v, {"size": 15})])
@@ -248,13 +248,13 @@ def divider(sec, big, sub, lead, qs):
     s = new(sec, dark=True)
     tb(s, 0.55, 1.6, W - 1.1, 1.8, big, 80, INK, bold=True)
     tb(s, 0.6, 3.35, W - 1.1, 0.5, sub, 16, TEAL, bold=True)
-    tb(s, 0.55, 4.0, W - 1.1, 0.7, lead, 22, INK, bold=True)
+    tb(s, 0.55, 3.95, W - 1.1, 1.15, lead, 22, INK, bold=True)
     for i, (a, b) in enumerate(qs):
         xx = 0.55 + i * 3.08
         bar = s.shapes.add_shape(MSO_SHAPE.RECTANGLE, Inches(xx), Inches(5.2), Inches(2.9), Inches(0.05)); bar.fill.solid(); bar.fill.fore_color.rgb = TEAL; bar.line.fill.background()
         tb(s, xx, 5.32, 2.9, 1.1, [(a, {"size": 20, "bold": True, "color": INK}), (b, {"size": 15, "color": INK2, "space": 4})])
     return s
-s = divider("第二段｜11:20–12:15", "看見暖暖", "PART 2 · 數據分析與策略研討", "從 646 位長者的資料，看一個衛生所的服務流程長什麼樣子。",
+s = divider("第二段｜11:20–12:15", "看見暖暖", "PART 2 · 數據分析與策略研討", "從 646 位長者的資料，看一個衛生所的服務流程長什麼樣子。\n報告：暖暖區衛生所 李麗芳 主任",
             [("量與節奏", "什麼時候、在哪裡做"), ("對象", "找到的是誰"), ("流程", "異常之後發生什麼"), ("資料", "數字能不能相信")])
 notes(s, "接下來每頁最後都有一個問題留給暖暖或留給大家。")
 
