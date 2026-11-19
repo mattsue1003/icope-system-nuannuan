@@ -40,3 +40,9 @@
   })});
   set(NN);
 })();
+/* ---------- case: intervention picks ---------- */
+(function(){
+  var host=document.getElementById("picks"),cnt=document.getElementById("pickCount"); if(!host)return;
+  host.addEventListener("click",function(e){var b=e.target.closest(".pick");if(!b)return;b.classList.toggle("on");
+    var n=host.querySelectorAll(".pick.on").length;cnt.textContent=n?("已選 "+n+" 項"):"尚未選擇";});
+})();

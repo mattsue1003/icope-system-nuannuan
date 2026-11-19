@@ -17,7 +17,20 @@ ORANGE = RGBColor(0xE8, 0x55, 0x2D); ORANGEBG = RGBColor(0xFC, 0xE8, 0xE0); ORAN
 AMBER = RGBColor(0xF4, 0xA9, 0x3C); AMBERBG = RGBColor(0xFD, 0xF0, 0xD8)
 RULE = RGBColor(0xCF, 0xDC, 0xDB); GREY = RGBColor(0xB8, 0xC4, 0xC6); WHITE = RGBColor(0xFF, 0xFF, 0xFF)
 DEEP = RGBColor(0x12, 0x34, 0x3B)
+import os
+MONO = os.environ.get("MONO") == "1"   # 白底黑字列印版
+HEADFILL, HEADTXT, DIVBG = DEEP, RGBColor(0xFF, 0xFF, 0xFF), TEALBG
+if MONO:
+    K = RGBColor(0, 0, 0); G1 = RGBColor(0x40, 0x40, 0x40); G2 = RGBColor(0x70, 0x70, 0x70); G3 = RGBColor(0xA6, 0xA6, 0xA6)
+    LT = RGBColor(0xF2, 0xF2, 0xF2)
+    INK = K; INK2 = G1; INK3 = G2
+    TEAL = K; TEALBG = LT; TEALMID = G3
+    ORANGE = G1; ORANGEBG = LT; ORANGEINK = K
+    AMBER = G3; AMBERBG = LT
+    RULE = RGBColor(0xBF, 0xBF, 0xBF); GREY = RGBColor(0xD9, 0xD9, 0xD9); DEEP = K
+    HEADFILL, HEADTXT, DIVBG = RGBColor(0xE6, 0xE6, 0xE6), K, RGBColor(0xFF, 0xFF, 0xFF)
 
+LIGHT = RGBColor(0xF4, 0xF8, 0xF8) if not MONO else RGBColor(0xF7, 0xF7, 0xF7)
 W, H = 13.333, 7.5
 prs = Presentation(); prs.slide_width = Inches(W); prs.slide_height = Inches(H)
 BLANK = prs.slide_layouts[6]
@@ -50,9 +63,8 @@ def new(sec, title=None, dark=False):
     s = prs.slides.add_slide(BLANK); PAGE[0] += 1
     if dark:
         bg = s.shapes.add_shape(MSO_SHAPE.RECTANGLE, 0, 0, prs.slide_width, prs.slide_height)
-        bg.fill.solid(); bg.fill.fore_color.rgb = TEALBG; bg.line.fill.background()
+        bg.fill.solid(); bg.fill.fore_color.rgb = DIVBG; bg.line.fill.background()
     tb(s, 0.55, 0.22, 9, 0.42, sec, 12, TEAL, bold=True)
-    tb(s, W - 1.6, 0.22, 1.05, 0.42, f"{PAGE[0]:02d}", 12, INK3, align=PP_ALIGN.RIGHT)
     ln = s.shapes.add_connector(1, Inches(0.55), Inches(0.66), Inches(W - 0.55), Inches(0.66))
     ln.line.color.rgb = RULE if not dark else TEALMID; ln.line.width = Pt(0.75)
     if title: tb(s, 0.55, 0.78, W - 1.1, 0.75, title, 28, INK, bold=True)
@@ -145,7 +157,8 @@ def bar_chart(s, x, y, w, h, cats, series, kind=XL_CHART_TYPE.BAR_CLUSTERED, col
             pt = plot.series[0].points[j]; pt.format.fill.solid(); pt.format.fill.fore_color.rgb = c
     return ch
 
-def table(s, x, y, w, rows, colw, rowh=0.5, size=16, head_fill=DEEP, hl_col=None):
+def table(s, x, y, w, rows, colw, rowh=0.5, size=16, head_fill=None, hl_col=None):
+    head_fill = head_fill or HEADFILL
     nr, nc = len(rows), len(rows[0])
     t = s.shapes.add_table(nr, nc, Inches(x), Inches(y), Inches(w), Inches(rowh * nr)).table
     for j, cw in enumerate(colw): t.columns[j].width = Inches(cw)
@@ -156,21 +169,21 @@ def table(s, x, y, w, rows, colw, rowh=0.5, size=16, head_fill=DEEP, hl_col=None
             c.margin_left = c.margin_right = Inches(0.1)
             p = c.text_frame.paragraphs[0]; run = p.add_run(); run.text = str(v)
             run.font.name = FONT; run.font.size = Pt(size if i else size - 2); run.font.bold = (i == 0 or j == 0 or j == hl_col)
-            run.font.color.rgb = WHITE if i == 0 else INK
+            run.font.color.rgb = HEADTXT if i == 0 else INK
             if j > 0 and j < nc - 1: p.alignment = PP_ALIGN.CENTER
             c.fill.solid()
-            c.fill.fore_color.rgb = head_fill if i == 0 else (TEALBG if j == hl_col else (WHITE if i % 2 else RGBColor(0xF4, 0xF8, 0xF8)))
+            c.fill.fore_color.rgb = head_fill if i == 0 else (TEALBG if j == hl_col else (WHITE if i % 2 else LIGHT))
     return t
 
 def notes(s, *lines): s.notes_slide.notes_text_frame.text = "\n".join("• " + l for l in lines)
 def foot(s, text): tb(s, 0.55, H - 0.55, W - 1.1, 0.4, text, 11, INK3, check_fit=False)
 
 # ───────────── 01 封面
-s = new("115 年度 長者內在能力檢測服務｜共學活動・系統討論")
+s = new("115 年度 長者內在能力檢測服務｜共學活動・案例討論＋系統討論")
 tb(s, 0.55, 1.15, 6.4, 0.45, "ICOPE · System Review", 14, TEAL, bold=True)
-tb(s, 0.55, 1.6, 6.6, 2.0, [("看見別人的流程", {}), ("調整自己的流程", {})], 44, INK, bold=True, ls=1.1)
+tb(s, 0.55, 1.6, 6.6, 2.0, [("看見一個人", {}), ("看見一套流程", {})], 44, INK, bold=True, ls=1.1)
 tb(s, 0.55, 3.65, 6.6, 0.55, [("系統討論：以", {"size": 20, "bold": True, "color": INK2})], 20)
-s.shapes[-1].text_frame.paragraphs[0].runs[0].text = "系統討論：以暖暖衛生所的服務數據為例"
+s.shapes[-1].text_frame.paragraphs[0].runs[0].text = "個案討論＋系統討論：以暖暖衛生所的服務為例"
 meta = [("資料範圍", "2026/01–08 評估個案"), ("資料筆數", "646 位長者（已去識別化）"), ("對象", "護理師・ICOPE 評估人員"), ("引導", "鍾孟修 職能治療師")]
 for i, (k, v) in enumerate(meta):
     xx = 0.55 + (i % 2) * 2.5; yy = 4.45 + (i // 2) * 1.12
@@ -188,7 +201,7 @@ notes(s, "今天的系統討論不是評比暖暖衛生所，而是借一個真�
       "主線：646 → 110 → 39 → 25 → 29，最後請大家算自己的數字。", "資料已去識別化，不顯示個案代號與評估人員姓名。")
 
 # ───────────── 02 目的
-s = new("開場｜系統討論的目的", "系統討論看的是「流程」，不是「人」")
+s = new("第二段｜系統討論的目的", "系統討論看的是「流程」，不是「人」")
 steps = [("STEP 1", "看見對方", "用暖暖的數據走一遍：服務量、受檢對象、六力異常、介入、後測。", "他們怎麼做到的？"),
          ("STEP 2", "對照指標", "和全市、衛生所合計放在一起看，找出明顯比較好與比較弱的環節。", "差異從哪一站來？"),
          ("STEP 3", "反思自己", "把同一套指標套回自己單位，算出你們的數字。", "我們也有一樣的卡點嗎？"),
@@ -217,7 +230,7 @@ foot(s, "依據：115 年長者內在能力檢測服務須知（縣市衛生局�
 notes(s, "兩個綠框是今天的重點站：用藥＋社會評估、個人介入計畫。", "視力聽力沒有複評、不需後測，但要依狀況轉介，品質全看介入那一步。", "追蹤先於後測；後測窗口 3 到 6 個月。")
 
 # ───────────── 04 指標
-s = new("開場｜指標定義", "今天用的指標：分子、分母先講清楚")
+s = new("第二段｜指標定義", "今天用的指標：分子、分母先講清楚")
 rows = [["指標", "分子", "分母", "篩選線"],
         ["初評異常率", "初評任 1 項異常人數", "評估人數", ""],
         ["複評完成率", "完成複評人數（含用藥及社會）", "初評異常人數", ""],
@@ -241,7 +254,7 @@ def divider(sec, big, sub, lead, qs):
         bar = s.shapes.add_shape(MSO_SHAPE.RECTANGLE, Inches(xx), Inches(5.2), Inches(2.9), Inches(0.05)); bar.fill.solid(); bar.fill.fore_color.rgb = TEAL; bar.line.fill.background()
         tb(s, xx, 5.32, 2.9, 1.1, [(a, {"size": 20, "bold": True, "color": INK}), (b, {"size": 15, "color": INK2, "space": 4})])
     return s
-s = divider("第一段", "看見暖暖", "PART 1 · SEE THE SYSTEM", "從 646 位長者的資料，看一個衛生所的服務流程長什麼樣子。",
+s = divider("第二段｜11:20–12:15", "看見暖暖", "PART 2 · 數據分析與策略研討", "從 646 位長者的資料，看一個衛生所的服務流程長什麼樣子。",
             [("量與節奏", "什麼時候、在哪裡做"), ("對象", "找到的是誰"), ("流程", "異常之後發生什麼"), ("資料", "數字能不能相信")])
 notes(s, "接下來每頁最後都有一個問題留給暖暖或留給大家。")
 
@@ -254,7 +267,7 @@ tb(s, 0.55, 5.35, 8, 0.48, "星期分布（人數）", 14, INK3, bold=True)
 bar_chart(s, 0.45, 5.65, 8.2, 1.55, ["一", "二", "三", "四", "五", "六", "日"], [("人數", (114, 140, 156, 113, 23, 18, 82))],
           kind=XL_CHART_TYPE.COLUMN_CLUSTERED, gap=35, point_colors={6: AMBER}, size=13)
 bignum(s, 9.0, 1.6, 3.8, "94", " 天", "評估日", "平均每個評估日 6.9 人", h=1.6)
-bignum(s, 9.0, 3.35, 3.8, "14", " 場", "單日 ≥15 人的大型場次", "共 291 人，占 45%；異常率 16.5%，與小場次 17.5% 相近", color=RGBColor(0x8F, 0x5A, 0x00), fill=AMBERBG, h=2.0)
+bignum(s, 9.0, 3.35, 3.8, "14", " 場", "單日 ≥15 人的大型場次", "共 291 人，占 45%；異常率 16.5%，與小場次 17.5% 相近", color=INK, fill=AMBERBG, h=2.0)
 ask(s, 9.0, 5.55, 3.8, 1.55, "問暖暖", "5 月、7 月量少的原因？週日場和哪些社區活動合作？")
 notes(s, "單日最多 28 人；大型場次異常率和小場次差不多，判讀沒有明顯放寬。", "大型場次的挑戰在後面：當天篩出異常，複評、介入能不能在現場做完。", "週日 82 人，可以請暖暖分享合作對象。")
 
@@ -265,7 +278,7 @@ bar_chart(s, 0.45, 1.9, 5.0, 4.2, ["65–69", "70–74", "75–79", "80 以上"]
 tb(s, 5.6, 1.6, 3.2, 0.48, "各年齡層初評異常率", 14, INK3, bold=True)
 bar_chart(s, 5.5, 1.9, 3.3, 4.2, ["65–69", "70–74", "75–79", "80 以上"], [("異常率", (0.140, 0.225, 0.189, 0.211))], gap=45, numfmt='0%', colors=[ORANGE], size=15, maxv=0.3)
 tb(s, 0.55, 6.25, 8.3, 0.6, "平均 69.3 歲，最年長 91 歲。80 歲以上只有 19 人，異常率僅供參考。", 14, INK3)
-bignum(s, 9.1, 1.6, 1.8, "60", "%", "女性", "390 / 646", color=INK, fill=RGBColor(0xF4, 0xF8, 0xF8), h=1.65)
+bignum(s, 9.1, 1.6, 1.8, "60", "%", "女性", "390 / 646", color=INK, fill=LIGHT, h=1.65)
 bignum(s, 11.05, 1.6, 1.75, "73", "%", "首次評估", "471 / 646", h=1.65)
 card(s, 9.1, 3.45, 3.7, 1.65, None, "首篩比高，新長輩找得到；但 75 歲以上、少出門的長輩在社區場次比較難接觸。", fill=ORANGEBG, size=16)
 ask(s, 9.1, 5.3, 3.7, 1.6, "問大家", "你們 75 歲以上的比例是多少？用什麼方法找到他們？", ORANGEINK)
@@ -287,9 +300,9 @@ notes(s, "三個高於全市：複評、後測、紀錄完整度，值得請暖�
 # ───────────── 09 漏斗
 s = new("看見暖暖｜流程漏斗", "漏斗看流失：真正變窄的是「介入」那一段")
 ch = bar_chart(s, 0.45, 1.6, 8.3, 5.4, ["初評異常", "用藥＋社會評估", "確認異常", "有介入紀錄", "實際衛教／轉介", "完成後測（應後測 39）"],
-               [("人數", (110, 108, 95, 88, 25, 29))], gap=35, point_colors={0: RGBColor(0x01, 0x6B, 0x78), 3: TEALMID, 4: ORANGE, 5: TEALMID}, size=16, maxv=125)
+               [("人數", (110, 108, 95, 88, 25, 29))], gap=35, point_colors={0: TEAL, 3: TEALMID, 4: ORANGE, 5: TEALMID}, size=16, maxv=125)
 card(s, 9.0, 1.6, 3.8, 2.75, "三個流失點", ["初評異常未做用藥／社會：2 人", "確認異常完全沒有介入紀錄：7 人", "有紀錄但只有未轉介原因：63 人", "應後測未完成：10 人"], fill=ORANGEBG, headc=ORANGEINK, size=15, headsize=16)
-card(s, 9.0, 4.5, 3.8, 1.2, None, "前段幾乎沒有流失；流失集中在「異常之後給什麼」。", fill=RGBColor(0xF4, 0xF8, 0xF8), size=15)
+card(s, 9.0, 4.5, 3.8, 1.2, None, "前段幾乎沒有流失；流失集中在「異常之後給什麼」。", fill=LIGHT, size=15)
 ask(s, 9.0, 5.8, 3.8, 1.2, "問大家", "你們的漏斗，最窄的是哪一層？", ORANGEINK)
 notes(s, "確認異常 95 人 = 複評異常 39 人＋只有視力或聽力異常的 56 人。", "63 人只有未轉介原因，下一頁拆開看。")
 
@@ -298,7 +311,7 @@ s = new("看見暖暖｜六力與複評", "聽力、視力最多；複評後行�
 bar_chart(s, 0.45, 1.6, 8.4, 5.35, ["聽力", "視力", "認知", "行動", "營養", "憂鬱", "用藥（108 人中）", "社會（108 人中）"],
           [("初評異常人數", (45, 31, 22, 15, 11, 5, 0, 0)), ("複評確認異常", (0, 0, 6, 12, 10, 0, 15, 1))], gap=40, overlap=-10, legend=True, size=14, numfmt='0;;;')
 card(s, 9.05, 1.6, 3.75, 1.55, None, "只有 1 項異常 94 人，2 項 14 人，3 項以上 2 人。介入可以很聚焦。", size=15)
-card(s, 9.05, 3.3, 3.75, 1.55, None, "用藥異常 15 人中，14 人使用止痛藥或安眠藥；藥品 10 種以上 2 人。", fill=RGBColor(0xF4, 0xF8, 0xF8), size=15)
+card(s, 9.05, 3.3, 3.75, 1.55, None, "用藥異常 15 人中，14 人使用止痛藥或安眠藥；藥品 10 種以上 2 人。", fill=LIGHT, size=15)
 ask(s, 9.05, 5.0, 3.75, 1.9, "問暖暖", "行動初評 15 人、複評 12 人異常，比例很高。現場怎麼施測 SPPB？")
 foot(s, "視力、聽力沒有複評。憂鬱 5 人 GDS-15 為 3–6 分，未達複評異常。")
 notes(s, "百分比：聽力 7.0%、視力 4.8%、認知 3.4%、行動 2.3%、營養 1.7%、憂鬱 0.8%（分母 646）。", "認知 22 人只有 6 人複評異常；行動 15 人有 12 人，比例很不一樣，數據品質頁再回來看。")
@@ -345,8 +358,8 @@ s = new("看見暖暖｜可以優化的地方 ②", "視力、聽力異常 74 �
 tb(s, 0.55, 1.6, 8, 0.48, "76 個異常面向（2 人視聽都異常）怎麼處理", 14, INK3, bold=True)
 bar_chart(s, 0.45, 1.95, 8.3, 4.9, ["已接受處置", "自行就醫", "個案拒絕（聽力 10）", "沒有紀錄（聽力 9）", "其他", "轉介介入點"], [("面向數", (30, 22, 11, 10, 3, 0))],
           gap=40, point_colors={0: TEALMID, 1: AMBER, 2: ORANGE, 3: ORANGE}, size=16)
-card(s, 9.0, 1.6, 3.8, 1.75, None, "聽力拒絕常是「覺得是退化、不影響生活」。這時衛教比轉介更關鍵：聽損和跌倒、失智、社交退縮有關。", fill=RGBColor(0xF4, 0xF8, 0xF8), size=15)
-card(s, 9.0, 3.5, 3.8, 1.75, None, "視力異常且有糖尿病、未定期看眼科者，須知寫明應轉介醫療院所；高風險眼科調查「慢性疾病」勾選 92 人。", fill=RGBColor(0xF4, 0xF8, 0xF8), size=15)
+card(s, 9.0, 1.6, 3.8, 1.75, None, "聽力拒絕常是「覺得是退化、不影響生活」。這時衛教比轉介更關鍵：聽損和跌倒、失智、社交退縮有關。", fill=LIGHT, size=15)
+card(s, 9.0, 3.5, 3.8, 1.75, None, "視力異常且有糖尿病、未定期看眼科者，須知寫明應轉介醫療院所；高風險眼科調查「慢性疾病」勾選 92 人。", fill=LIGHT, size=15)
 ask(s, 9.0, 5.4, 3.8, 1.45, "問大家", "聽力異常轉到哪裡？有合作的耳鼻喉科或聽力師嗎？", ORANGEINK)
 foot(s, "另有 8 個面向同時給了衛教指導。")
 notes(s, "視聽沒有複評也沒有後測，平台上很容易「填完原因就結束」。", "已接受處置 30 個：寫下是什麼處置（眼鏡、助聽器、定期回診）。")
@@ -355,7 +368,7 @@ notes(s, "視聽沒有複評也沒有後測，平台上很容易「填完原因�
 s = new("看見暖暖｜可以優化的地方 ③", "行動複評異常 12 人：沒有一人接到運動資源")
 for i, (n, h_, b, fc, nc) in enumerate([("0 / 12", "主動介入", "9 人填「已接受處置」、2 人「自行就醫」、1 人無紀錄；沒有據點、運動課或單位直接介入。", ORANGEBG, ORANGEINK),
                                         ("5 / 12", "沒有後測", "行動是後測流失最多的面向；其中 4 人的 6 個月窗口已過。", ORANGEBG, ORANGEINK),
-                                        ("9 / 11", "跌倒卻行動正常", "用藥／社會評估中 11 人一年內跌倒，只有 2 人行動初評異常。", AMBERBG, RGBColor(0x8F, 0x5A, 0x00))]):
+                                        ("9 / 11", "跌倒卻行動正常", "用藥／社會評估中 11 人一年內跌倒，只有 2 人行動初評異常。", AMBERBG, INK)]):
     tb(s, 0.55 + i * 4.1, 1.7, 3.95, 3.55, [(n, {"size": 44, "bold": True, "color": nc}), (h_, {"size": 22, "bold": True, "space": 10}), (b, {"size": 17, "color": INK2, "space": 10})],
        fill=fc, shape=MSO_SHAPE.ROUNDED_RECTANGLE, pad=0.25, anchor=MSO_ANCHOR.MIDDLE)
 card(s, 0.55, 5.5, 6.05, 1.4, "可以連結的資源", "社區照顧關懷據點與 C 據點的預防及延緩失能方案、衛生所自辦運動班、肌力課程。", size=15)
@@ -398,7 +411,7 @@ ch = bar_chart(s, 0.45, 1.95, 8.3, 4.5, ["營養（90%）", "只有用藥（83%�
 foot(s, "1 人同時有認知與行動異常，兩列都計入。後測窗口以 2026/11/19 計算。")
 card(s, 9.0, 1.6, 3.8, 1.65, "已超過 6 個月：6 人", "1 月評估 3 人、3–4 月評估 3 人；行動 4 人、認知 2 人。", fill=ORANGEBG, headc=ORANGEINK, size=15, headsize=17)
 card(s, 9.0, 3.4, 3.8, 1.65, "窗口內還可完成：4 人", "最晚期限 12/28、1/22、1/29、2/11（跨年度依衛生局規定）。", size=15, headsize=17)
-card(s, 9.0, 5.2, 3.8, 1.65, "匯出資料沒有追蹤欄位", "無法確認「先追蹤、再後測」，請暖暖補充追蹤紀錄。", fill=RGBColor(0xF4, 0xF8, 0xF8), headc=INK, size=15, headsize=17)
+card(s, 9.0, 5.2, 3.8, 1.65, "匯出資料沒有追蹤欄位", "無法確認「先追蹤、再後測」，請暖暖補充追蹤紀錄。", fill=LIGHT, headc=INK, size=15, headsize=17)
 notes(s, "後測 74% 已比全市好，流失集中在行動與 1 月的大量場次。", "建議：介入計畫當天就約好追蹤日（第 1–2 個月）與後測日（第 4 個月），每月第一週核對到期名單。")
 
 # ───────────── 19 小結
@@ -410,7 +423,7 @@ tb(s, 6.85, 1.7, 5.95, 5.2, [("可以一起優化的", {"size": 22, "bold": True
 notes(s, "請暖暖回應：右邊五點，哪些是資料呈現的問題、哪些是真的流程問題？")
 
 # ───────────── 20 divider
-s = divider("第二段", "反思自己", "PART 2 · REFLECT & ADJUST", "同一套指標，套回你們單位。找一個最大的缺口，帶一件事回去改。",
+s = divider("第二段｜反思自己", "反思自己", "PART 2 · REFLECT & ADJUST", "同一套指標，套回你們單位。找一個最大的缺口，帶一件事回去改。",
             [("同儕提問", "向暖暖請教做法"), ("自我診斷", "算出自己的指標"), ("分組討論", "原因與對策"), ("行動承諾", "30 天改一件事")])
 notes(s, "請各單位拿出自己的平台報表或匯出檔。")
 
@@ -422,7 +435,7 @@ def qslide(sec, title, qs, side_head, side, minutes, color=ORANGE):
         tb(s, 0.55, yy + 0.05, 0.7, 0.45, f"Q{i+1}", 15, WHITE, bold=True, fill=color, shape=MSO_SHAPE.ROUNDED_RECTANGLE, align=PP_ALIGN.CENTER, anchor=MSO_ANCHOR.MIDDLE, pad=0.02)
         tb(s, 1.4, yy, 7.6, 5.2 / len(qs) - 0.05, [(q, {"size": 19, "bold": True}), (sub, {"size": 14, "color": INK3, "space": 3})])
     tb(s, 9.4, 1.7, 3.4, 1.4, [("討論時間", {"size": 14, "bold": True, "color": INK3}), (f"{minutes} 分鐘", {"size": 36, "bold": True, "color": TEAL})], line=RULE, shape=MSO_SHAPE.ROUNDED_RECTANGLE, pad=0.18, anchor=MSO_ANCHOR.MIDDLE)
-    tb(s, 9.4, 3.3, 3.4, 3.6, [(side_head, {"size": 17, "bold": True})] + [(x, {"size": 16, "space": 12}) for x in side], fill=RGBColor(0xF4, 0xF8, 0xF8), shape=MSO_SHAPE.ROUNDED_RECTANGLE, pad=0.22, anchor=MSO_ANCHOR.MIDDLE)
+    tb(s, 9.4, 3.3, 3.4, 3.6, [(side_head, {"size": 17, "bold": True})] + [(x, {"size": 16, "space": 12}) for x in side], fill=LIGHT, shape=MSO_SHAPE.ROUNDED_RECTANGLE, pad=0.22, anchor=MSO_ANCHOR.MIDDLE)
     return s
 s = qslide("反思自己｜同儕提問", "先問「怎麼做到」：向暖暖請教 5 個問題",
            [("大型場次的動線怎麼排，讓複評、用藥、社會評估當天做完？", "人力配置、站點順序、AD8 由誰回答"), ("後測是什麼時候約、怎麼提醒的？", "約定時機、名單管理、電訪或面訪"),
@@ -492,7 +505,8 @@ s = divider("系統討論結束", "謝謝暖暖", "THANK YOU FOR SHARING", "把�
             [("找得到", "首篩、高齡者"), ("做得完", "複評、用藥社會"), ("接得住", "衛教與轉介"), ("追得到", "追蹤與後測")])
 notes(s, "接著進行個案討論；行動承諾卡請在活動結束前繳回。")
 
-out = sys.argv[1] if len(sys.argv) > 1 else "ICOPE系統討論_暖暖衛生所.pptx"
+exec(open("ppt_case.py", encoding="utf-8").read())
+out = sys.argv[1] if len(sys.argv) > 1 else ("ICOPE共學_個案＋系統討論_白底黑字.pptx" if MONO else "ICOPE共學_個案＋系統討論.pptx")
 prs.save(out)
 print("saved", out, "slides", len(prs.slides))
 print("\n".join(WARN) if WARN else "no fit warnings")

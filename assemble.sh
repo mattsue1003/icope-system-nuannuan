@@ -1,11 +1,12 @@
 #!/bin/zsh
 # parts/ → deck.html（Artifact 用）→ index.html（GitHub Pages／離線用）
 cd "${0:A:h}"
+python3 order.py
 {
  cat parts/base/head.html parts/extra.css
  print -r -- '</style>'
  print -r -- '<div class="deck" id="deck">'
- cat parts/slides.html
+ cat parts/deck_order.html
  print -r -- '</div>'
  cat parts/base/shell.html
  print -r -- '<script>'
