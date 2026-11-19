@@ -140,3 +140,9 @@ body.scroll .picks{grid-template-columns:1fr}
 .step ul li{font-size:var(--fs-b)}
 .divider .presenter{font-size:var(--fs-m);font-weight:700;color:var(--ondeep2);border-left:4px solid var(--tealmid);padding-left:calc(var(--u)*14);margin-top:calc(var(--u)*-18)}
 .divider.mi .presenter{border-color:var(--orange)}
+.mna{font-size:var(--fs-s)}
+.mna td{padding:calc(var(--u)*6) calc(var(--u)*10)}
+.mna td:first-child{width:50%}
+.mna tr.tot td{border-top:1.5px solid var(--ink);border-bottom:none;background:var(--sheet2,transparent)}
+.mna b.num{font-size:1.25em}
+.mna{flex:1 1 auto;min-height:0;height:auto}.mna b.num{line-height:1}
