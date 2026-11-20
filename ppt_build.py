@@ -188,10 +188,8 @@ meta = [("報告者", "暖暖區衛生所 李麗芳 主任"), ("資料", "2026/0
 for i, (k, v) in enumerate(meta):
     xx = 0.55 + (i % 2) * 2.5; yy = 4.25 + (i // 2) * 0.92
     tb(s, xx, yy, 2.45, 0.92, [(k, {"size": 12, "bold": True, "color": INK3}), (v, {"size": 15})])
-s.shapes.add_picture("img/qr-web.png", Inches(5.75), Inches(4.35), Inches(1.1), Inches(1.1))
-tb(s, 5.4, 5.45, 1.8, 0.4, "網頁版", 11, INK2, align=PP_ALIGN.CENTER)
-s.shapes.add_picture("img/qr-line.png", Inches(5.75), Inches(5.85), Inches(1.1), Inches(1.1))
-tb(s, 5.3, 6.95, 2.0, 0.4, "加入 LINE 學員社群", 11, INK2, align=PP_ALIGN.CENTER)
+s.shapes.add_picture("img/qr-web.png", Inches(5.6), Inches(4.5), Inches(1.45), Inches(1.45))
+tb(s, 5.35, 5.98, 1.95, 0.4, "掃描開啟網頁版", 11, INK2, align=PP_ALIGN.CENTER)
 tiles = [("646", "評估人數", "94 個評估日・14 場大型場次", TEAL), ("110", "初評異常", "初評異常率 17.0%", ORANGEINK),
          ("108", "用藥＋社會評估", "初評異常者 98% 完成", TEAL), ("39", "複評異常", "行動12・營養10・認知6・用藥15", ORANGEINK),
          ("25", "實際介入", "有衛教或轉介的人", ORANGEINK), ("29", "完成後測", "應後測 39 人，後測率 74%", TEAL)]
