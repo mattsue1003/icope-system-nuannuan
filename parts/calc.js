@@ -27,14 +27,14 @@
       else if(v>100)st="<span class=\"pill wn\">超過 100%，檢查分母</span>";
       else if(x[3]){ if(v<THR[x[3]])st="<span class=\"pill sr\">觸及篩選線</span>"; else st="<span class=\"pill ok\">未觸及</span>";}
       else if(x[4]==="act"&&v<50)st="<span class=\"pill wn\">低於一半</span>";
-      h+="<div class=orow><div><b>"+x[0]+"</b>　<span class=of>"+x[1]+"・暖暖 "+NNV[x[4]].toFixed(1)+"%</span></div><div class=ov>"+(v==null?"—":v.toFixed(1)+"%")+"</div><div>"+st+"</div></div>";
+      h+="<div class=orow><div><b>"+x[0]+"</b>　<span class=of>"+x[1]+"・某衛生所 "+NNV[x[4]].toFixed(1)+"%</span></div><div class=ov>"+(v==null?"—":v.toFixed(1)+"%")+"</div><div>"+st+"</div></div>";
     });
     out.innerHTML=h;
   }
   ids.forEach(function(k){document.getElementById("c_"+k).addEventListener("input",function(){src.textContent="自行輸入中。";calc()})});
   document.querySelectorAll("[data-fill]").forEach(function(b){b.addEventListener("click",function(){
     var f=b.getAttribute("data-fill");
-    if(f==="nn"){set(NN);src.textContent="目前是暖暖衛生所 2026/01–08 數據。"}
+    if(f==="nn"){set(NN);src.textContent="目前是某衛生所 2026/01–08 數據。"}
     else if(f==="city"){set(CITY);src.textContent="全市 30 單位加總（10 月篩選表；沒有首次評估、實際介入、75 歲以上欄位，留白）。"}
     else{set({});src.textContent="已清空，請輸入你們單位的人數。"}
   })});
