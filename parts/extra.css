@@ -147,3 +147,6 @@ body.scroll .picks{grid-template-columns:1fr}
 .slide.divider{--deep:var(--tealbg);--ondeep:var(--ink);--ondeep2:var(--ink2)}
 .slide.divider .hd .sec{color:var(--tealink)}.slide.divider.mi .hd .sec{color:var(--orangeink)}
 .qrrow{display:flex;gap:calc(var(--u)*28);flex-wrap:wrap}
+.sh{list-style:none;padding:0;display:flex;flex-direction:column;justify-content:space-evenly;flex:1;gap:calc(var(--u)*6)}
+.sh li{display:grid;grid-template-columns:7.4em 1fr;gap:calc(var(--u)*10);font-size:var(--fs-s);line-height:1.55}
+.sh li>b{color:var(--tealink)}
