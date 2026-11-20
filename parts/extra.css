@@ -43,8 +43,6 @@
 .tag2{display:inline-block;font-size:var(--fs-cap);font-weight:700;border-radius:4px;padding:.05em .5em;margin-left:.4em;vertical-align:.1em}
 .tag2.up{background:color-mix(in srgb,var(--good) 16%,var(--sheet));color:#0b6b0b}
 .tag2.dn{background:var(--orangebg);color:var(--orangeink)}
-:root[data-theme="dark"] .tag2.up{color:#7fd67f}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .tag2.up{color:#7fd67f}}
 /* finding cards */
 .fd{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--g3);flex:1}
 .fd>div{display:flex;flex-direction:column;gap:calc(var(--u)*8);justify-content:space-evenly}
@@ -146,3 +144,5 @@ body.scroll .picks{grid-template-columns:1fr}
 .mna tr.tot td{border-top:1.5px solid var(--ink);border-bottom:none;background:var(--sheet2,transparent)}
 .mna b.num{font-size:1.25em}
 .mna{flex:1 1 auto;min-height:0;height:auto}.mna b.num{line-height:1}
+.slide.divider{--deep:var(--tealbg);--ondeep:var(--ink);--ondeep2:var(--ink2)}
+.slide.divider .hd .sec{color:var(--tealink)}.slide.divider.mi .hd .sec{color:var(--orangeink)}
