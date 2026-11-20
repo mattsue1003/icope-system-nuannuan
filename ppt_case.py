@@ -56,7 +56,7 @@ for i in (1, 2, 6):
 for j in range(3):
     for p_ in t.cell(7, j).text_frame.paragraphs:
         for r_ in p_.runs: r_.font.bold = True
-ask(s, 0.55, 6.05, W - 1.1, 0.9, "討論", "要是你，會怎麼提供這位長輩相關的介入和轉介？", ORANGEINK)
+ask(s, 0.55, 6.05, W - 1.1, 0.9, "分組討論", "先選出小組長與報告者，再討論：要是你，會怎麼提供這位長輩相關的介入和轉介？", ORANGEINK)
 notes(s, "複評扣分在 A 食量、B 體重、F1 BMI；C、D、E 都滿分。", "後測三項都進步；12 分剛進入正常範圍，BMI 仍只拿 1 分（滿分 3）。", "主任簡介完，請專家委員與講師主持討論。")
 
 # ── 休息

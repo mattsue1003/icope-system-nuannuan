@@ -146,3 +146,4 @@ body.scroll .picks{grid-template-columns:1fr}
 .mna{flex:1 1 auto;min-height:0;height:auto}.mna b.num{line-height:1}
 .slide.divider{--deep:var(--tealbg);--ondeep:var(--ink);--ondeep2:var(--ink2)}
 .slide.divider .hd .sec{color:var(--tealink)}.slide.divider.mi .hd .sec{color:var(--orangeink)}
+.qrrow{display:flex;gap:calc(var(--u)*28);flex-wrap:wrap}
