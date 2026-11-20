@@ -18,6 +18,6 @@ ANON = [('可請暖暖主任分享', '可請報告單位分享'), ('請暖暖主
 def anon(t):
     for a, b in ANON: t = t.replace(a, b)
     return t
-order = [d['01'], x['AG'], d['03'], c['C1'], c['C2']] + [x['BR'], d['02'], d['04'], d['05']] + [d[f'{i:02d}'] for i in range(6, 27)] + [c['C11']]
+order = [d['01'], x['AG'], d['03'], c['C1'], c['C2']] + [x['BR'], d['02'], d['04'], d['05']] + [d[f'{i:02d}'] for i in range(6, 27) if i != 25] + [c['C11']]
 open('parts/deck_order.html', 'w').write(''.join(order))
 print('slides', len(order))
