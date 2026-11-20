@@ -8,7 +8,7 @@ rows = [["時間", "議程", "主持人／主講者"],
         ["10:00–10:05", "開場與人員介紹", "衛生局"],
         ["10:05–11:15", "共學主題報告（一）案例討論與反饋\n營養個案：初評 → 複評 → 介入 → 後測", "報告：暖暖區衛生所 李麗芳 主任\n專家委員：倪麗芬（長庚科技大學護理所）\n主持人：鍾孟修 職能治療師"],
         ["11:15–11:20", "休息", ""],
-        ["11:20–12:15", "共學主題報告（二）數據分析與策略研討\n暖暖衛生所 646 筆數據 → 反思自己單位", "專家委員：倪麗芬（長庚科技大學護理所）\n主持人：鍾孟修 職能治療師"],
+        ["11:20–12:15", "共學主題報告（二）數據分析與策略研討\n暖暖衛生所 646 筆數據 → 反思自己單位", "報告：鍾孟修 職能治療師\n專家委員：倪麗芬（長庚科技大學護理所）\n主持人：鍾孟修 職能治療師"],
         ["12:15–12:30", "滿意度調查、大合照", ""]]
 t = table(s, 0.55, 1.7, W - 1.1, rows, [2.2, 6.5, 3.53], rowh=0.66, size=17)
 for i in (3, 5):
@@ -78,43 +78,6 @@ for e in ids: lst.remove(e)
 for i in order: lst.append(ids[i])
 drop = ids[26]
 prs.part.drop_rel(drop.rId)
-# 第二段（系統討論）不提暖暖：統一改成「某衛生所」
-ANON = [("可請暖暖主任分享", "可請報告單位分享"), ("請暖暖主任分享", "請報告單位分享"), ("暖暖回覆", "單位回覆"), ("看見暖暖", "看見某衛生所"),
-        ("暖暖區衛生所", "某衛生所"), ("暖暖衛生所", "某衛生所"), ("暖暖", "某衛生所")]
-def _anon(t):
-    for a_, b_ in ANON: t = t.replace(a_, b_)
-    return t
-def _tf(tf):
-    for p_ in tf.paragraphs:
-        for r_ in p_.runs:
-            if "暖暖" in r_.text: r_.text = _anon(r_.text)
-from lxml import etree
-for k, sl in enumerate(prs.slides):
-    if k < 5: continue
-    for sh in sl.shapes:
-        if sh.has_text_frame: _tf(sh.text_frame)
-        if sh.has_table:
-            for row in sh.table.rows:
-                for c_ in row.cells: _tf(c_.text_frame)
-        if sh.has_chart:
-            cp = sh.chart.part
-            for el in cp._element.iter():
-                if el.text and "暖暖" in el.text: el.text = _anon(el.text)
-    if sl.has_notes_slide: _tf(sl.notes_slide.notes_text_frame)
-# 議程第二段、封面副標
-for sh in prs.slides[1].shapes:
-    if sh.has_table:
-        for row in sh.table.rows:
-            for c_ in row.cells:
-                for p_ in c_.text_frame.paragraphs:
-                    for r_ in p_.runs:
-                        if "暖暖衛生所 646" in r_.text: r_.text = r_.text.replace("暖暖衛生所", "某衛生所")
-for sh in prs.slides[0].shapes:
-    if sh.has_text_frame:
-        for p_ in sh.text_frame.paragraphs:
-            for r_ in p_.runs:
-                r_.text = r_.text.replace("以暖暖衛生所的服務為例", "以衛生所的實際服務為例")
-if prs.slides[0].has_notes_slide: _tf(prs.slides[0].notes_slide.notes_text_frame)
 for n, sl in enumerate(prs.slides, 1):
     tb(sl, W - 1.6, 0.22, 1.05, 0.42, f"{n:02d}", 12, INK3, align=PP_ALIGN.RIGHT)
 PAGE[0] = len(prs.slides)

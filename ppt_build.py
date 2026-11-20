@@ -254,7 +254,7 @@ def divider(sec, big, sub, lead, qs):
         bar = s.shapes.add_shape(MSO_SHAPE.RECTANGLE, Inches(xx), Inches(5.2), Inches(2.9), Inches(0.05)); bar.fill.solid(); bar.fill.fore_color.rgb = TEAL; bar.line.fill.background()
         tb(s, xx, 5.32, 2.9, 1.1, [(a, {"size": 20, "bold": True, "color": INK}), (b, {"size": 15, "color": INK2, "space": 4})])
     return s
-s = divider("第二段｜11:20–12:15", "看見暖暖", "PART 2 · 數據分析與策略研討", "從 646 位長者的資料，看一個衛生所的服務流程長什麼樣子。",
+s = divider("第二段｜11:20–12:15", "看見暖暖", "PART 2 · 數據分析與策略研討", "從 646 位長者的資料，看一個衛生所的服務流程長什麼樣子。\n報告：鍾孟修 職能治療師",
             [("量與節奏", "什麼時候、在哪裡做"), ("對象", "找到的是誰"), ("流程", "異常之後發生什麼"), ("資料", "數字能不能相信")])
 notes(s, "接下來每頁最後都有一個問題留給暖暖或留給大家。")
 
