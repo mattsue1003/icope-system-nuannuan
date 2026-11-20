@@ -512,6 +512,10 @@ body.scroll .picks{grid-template-columns:1fr}
 .sh{list-style:none;padding:0;display:flex;flex-direction:column;justify-content:space-evenly;flex:1;gap:calc(var(--u)*6)}
 .sh li{display:grid;grid-template-columns:7.4em 1fr;gap:calc(var(--u)*10);font-size:var(--fs-s);line-height:1.55}
 .sh li>b{color:var(--tealink)}
+.fbk{display:grid;grid-template-columns:repeat(3,1fr);grid-auto-rows:1fr;gap:var(--g2);flex:1}
+.fbk .card{display:flex;flex-direction:column;justify-content:center;gap:calc(var(--u)*6)}
+.fbk .card>b{font-size:var(--fs-b)}
+.fbk .card p{font-size:var(--fs-s);color:var(--ink2);line-height:1.5}
 </style>
 <div class="deck" id="deck">
 <!-- ───────── 01 封面 -->
@@ -1206,32 +1210,56 @@ body.scroll .picks{grid-template-columns:1fr}
 </section>
 
 <!-- 現場分享（併在 23 區塊內） -->
-<section class="slide" data-title="現場分享與委員回饋">
-  <div class="hd"><span class="sec">反思自己｜現場分享</span><span class="pg"></span></div>
-  <h2>現場分享：中正區衛生所怎麼做，委員怎麼看</h2>
-  <div class="body fill g21 stretch" style="display:grid">
-    <div class="card fillcol share">
-      <div class="label">中正區衛生所的做法</div>
+<section class="slide" data-title="現場分享：各組做法">
+  <div class="hd"><span class="sec">反思自己｜現場分享 ①</span><span class="pg"></span></div>
+  <h2>現場分享：各組怎麼做介入、轉介與拒測</h2>
+  <div class="body fill g2 stretch" style="display:grid">
+    <div class="card fillcol">
+      <div class="label">中正區衛生所</div>
       <ul class="sh">
-        <li><b>聽力</b><span>不少長輩在大賣場配助聽器：提醒<b>定期回去校正</b>，天氣潮濕電子產品易壞；有配戴就多鼓勵。</span></li>
-        <li><b>行動・嚴重</b><span>先問有沒有固定復健的醫院；沒有就介紹區內的<b>復健診所</b>。</span></li>
-        <li><b>行動・初步</b><span>轉介<b>關懷據點</b>或衛生所自辦的運動活動，就近、選他喜歡的，轉介比較會成功。</span></li>
-        <li><b>介入</b><span>在篩檢現場就完成初步衛教與轉介。</span></li>
-        <li><b>後測</b><span>留下衛生所電話；現場建議：<b>主動幫長輩把電話存進手機</b>。</span></li>
-        <li><b>拒測・無法完成</b><span>以紙本記錄為主，系統能填的照填（就醫院所、坐輪椅無法配合）；拒測時回頭說明六力的目的，不勉強；家屬在場就提醒需要時就醫評估，家屬配合度高。</span></li>
+        <li><b>聽力</b><span>助聽器提醒<b>定期回去校正</b>，天氣潮濕易壞；有配戴就多鼓勵。</span></li>
+        <li><b>行動・嚴重</b><span>先問固定復健的醫院；沒有就介紹區內<b>復健診所</b>。</span></li>
+        <li><b>行動・初步</b><span>轉介<b>關懷據點</b>或衛生所運動活動，就近、選他喜歡的。</span></li>
+        <li><b>介入</b><span>篩檢現場就完成初步衛教與轉介。</span></li>
+        <li><b>後測</b><span>留衛生所電話；建議<b>主動幫長輩存進手機</b>。</span></li>
+        <li><b>拒測</b><span>紙本記錄原因；回頭說明六力目的、不勉強；家屬在場就提醒就醫評估。</span></li>
       </ul>
     </div>
-    <div class="fillcol">
-      <div class="card tint"><div class="label">專家委員回饋</div>
-        <p class="small" style="margin-top:6px">把自己單位的資料這樣整理，就知道<b>強項和弱點</b>，也能和全市、全國比較，這就是一套<b>品質監測</b>的做法。</p></div>
-      <div class="card"><div class="label">資料也能偵錯</div>
-        <p class="small" style="margin-top:6px">例如受檢者都 65 歲以上，卻出現一位「6 歲」：就是少 key 一碼，很快就能抓出登打錯誤。</p></div>
-      <div class="card warm"><div class="label">巨觀＋微觀</div>
-        <p class="small" style="margin-top:6px">系統數據看<b>整個單位</b>，個案討論看<b>一位長輩</b>；兩個都做到，是國健署期待的品質提升方式。</p></div>
+    <div class="card fillcol">
+      <div class="label">其他組補充</div>
+      <ul class="sh">
+        <li><b>一間看到底</b><span>視力、聽力、行動異常都介紹<b>同一間診所</b>，長輩不用跑來跑去，回診率較高。</span></li>
+        <li><b>就近轉介</b><span>先問有沒有固定醫院；沒有就轉衛生所附近院所，不用久等。</span></li>
+        <li><b>行動異常</b><span>先到<b>診所評估</b>排除其他問題；單純肌力不足再轉住家附近據點。</span></li>
+        <li><b>營養中心</b><span>大型場次營養師<b>在現場</b>，異常當場轉介，個案不會跑掉；要先問長輩願不願意多留幾分鐘。</span></li>
+        <li><b>卡點</b><span>衛生所自己做的評估，有沒有回診<b>只能聽長輩說</b>；診所、藥局則有系統可查。</span></li>
+        <li><b>拒測</b><span>說明這是政府難得提供的服務，鼓勵完成；紙本記錄問題所在。</span></li>
+      </ul>
     </div>
   </div>
   <aside class="notes"><h4>講者備註</h4><ul>
-    <li>整理自 11/20 共學現場：中正區衛生所分組報告與專家委員回饋。</li>
+    <li>整理自 11/20 共學現場各組報告（逐字稿與錄音轉文字）。</li>
+  </ul></aside>
+</section>
+
+<section class="slide" data-title="專家委員回饋">
+  <div class="hd"><span class="sec">反思自己｜現場分享 ②</span><span class="pg"></span></div>
+  <h2>專家委員回饋：九個帶回去的提醒</h2>
+  <div class="body fill">
+    <div class="fbk">
+      <div class="card tint"><b>品質監測</b><p>把自己單位的資料這樣整理，就知道強項和弱點，也能和全市、全國比較。</p></div>
+      <div class="card"><b>資料偵錯</b><p>受檢者都 65 歲以上卻出現「6 歲」：少 key 一碼，很快就抓得到。</p></div>
+      <div class="card warm"><b>巨觀＋微觀</b><p>系統數據看整個單位、個案看一位長輩，兩個都做到是國健署的期待。</p></div>
+      <div class="card"><b>異常率偏低？看收案來源</b><p>大型活動多是健康長輩；和<b>診所合作</b>收到慢性病、中風等長輩，資料才接近常態。</p></div>
+      <div class="card tint"><b>讓轉介變簡單</b><p>很多聽力異常其實是<b>耳垢</b>，掛號清掉就改善；聽損和失智有關。助聽器有雜音可能沒戴緊，要校正。</p></div>
+      <div class="card"><b>幫長輩掛號、寫下時間</b><p>只說「回去看醫生」常會忘；幫他掛好、寫下日期，轉介比較會成功。</p></div>
+      <div class="card warm"><b>轉介成功廣義認定</b><p>口頭告知、收據、藥單、健保快易通紀錄都可以認，不要讓長輩覺得被懷疑。明年衛生局協助和主要轉介診所合作。</p></div>
+      <div class="card"><b>即時介入、分級介入</b><p>專業內能做的<b>當場做</b>；眼科、耳鼻喉科或複雜個案再轉出去。</p></div>
+      <div class="card tint"><b>就近生活圈，也放過自己</b><p>轉介選長輩生活圈內的地方。家訪也叫不回的長輩，盡力了就<b>放過自己也放過長輩</b>；把別人的經驗大方帶回去用。</p></div>
+    </div>
+  </div>
+  <aside class="notes"><h4>講者備註</h4><ul>
+    <li>整理自 11/20 共學現場專家委員回饋（錄音轉文字）。</li>
   </ul></aside>
 </section>
 
